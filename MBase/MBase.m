@@ -119,10 +119,15 @@
     
     if([className isEqualToString:targetClassName]){
         return obj;
-    }else if([className isEqualToString:@"NSString"] && [targetClassName isEqualToString:@"NSNumber"]){
+    }
+    if([className isEqualToString:@"NSString"] && [targetClassName isEqualToString:@"NSNumber"]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         return [formatter numberFromString:obj];
+    }
+    //last chance...
+    if([targetClassName isEqualToString:@"NSString"] && [obj hasPropertyNamed:@"stringValue"]){
+        return [obj stringValue];
     }
     //else...
     return nil; //no conversion found
