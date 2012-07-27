@@ -7,7 +7,113 @@
 //
 
 #import "MBase.h"
+#import <Foundation/NSObjCRuntime.h>
+#import <objc/runtime.h>
+#import "SBJson.h"
+#import "NSString+base64.h"
 
 @implementation MBase
+
+- (id) initWithDictionary:(NSDictionary *)dictionary{
+    id currentClass = [self class];
+    
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
+    for (i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+        
+        id value = [dictionary objectForKey:[self camelToSnake:propertyName]];
+        if(value){
+            [self setValue:value forKey:propertyName];
+        }
+    }
+    
+    return self;
+}
+
++ (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password{
+    NSString *authorization = [NSString stringWithFormat:@"%@:%@", username, password];
+    return [authorization base64Encode];
+}
+
++ (id) postData:(NSDictionary *)data toUrl:(NSString *)url{
+    return [self postData:data toUrl:url withAuthorization:nil];
+}
+
++ (id) postData:(NSDictionary *)data toUrl:(NSString *)url withAuthorization:(NSString *)authorization{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"POST"];
+    if(data){
+        NSString *json = [data JSONRepresentation];
+        NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [request setHTTPBody:data];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
+    }
+    if(authorization){
+        [request addValue:authorization forHTTPHeaderField:@"Authorization"];
+    }
+    [request setURL:[NSURL URLWithString:url]];
+    
+    NSError *error = [[NSError alloc] init];
+    NSHTTPURLResponse *responseCode = nil;
+    
+    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    NSString *stringData = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
+    
+    if([responseCode statusCode] < 200 || [responseCode statusCode] >= 300){
+        NSLog(@"status code -> %i", [responseCode statusCode]);
+        NSLog(@"response data -> %@", [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding]);
+        return nil;
+    }
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    return [parser objectWithString:stringData];
+}
+
++ (id) getDataFromUrl:(NSString *)url{
+    return [self getDataFromUrl:url withAuthorization:nil];
+}
+
++ (id) getDataFromUrl:(NSString *)url withAuthorization:(NSString *)authorization{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    if(authorization){
+        [request addValue:authorization forHTTPHeaderField:@"Authorization"];
+    }
+    [request setURL:[NSURL URLWithString:url]];
+    
+    NSError *error = [[NSError alloc] init];
+    NSHTTPURLResponse *responseCode = nil;
+    
+    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    
+    if([responseCode statusCode] != 200){
+        NSLog(@"status code -> %i", [responseCode statusCode]);
+        NSLog(@"response data -> %@", [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding]);
+        return nil;
+    }
+    
+    NSString *stringData = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    return [parser objectWithString:stringData];
+}
+
+//---- private ----
+- (NSString *) camelToSnake:(NSString *)camel{
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([A-Z])"
+                                                                           options:NSRegularExpressionAnchorsMatchLines
+                                                                             error:&error];
+    
+    NSString *snake = [regex stringByReplacingMatchesInString:camel
+                                                      options:0
+                                                        range:NSMakeRange(0, [camel length])
+                                                 withTemplate:@"_$1"];
+    return [snake lowercaseString];
+}
 
 @end

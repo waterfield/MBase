@@ -10,4 +10,13 @@
 
 @interface MBase : NSObject
 
+- (id) initWithDictionary:(NSDictionary *)dictionary;
+
++ (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
+
++ (id) postData:(NSDictionary *)data toUrl:(NSString *)url;
++ (id) postData:(NSDictionary *)data toUrl:(NSString *)url withAuthorization:(NSString *)authorization;
++ (id) getDataFromUrl:(NSString *)url;
++ (id) getDataFromUrl:(NSString *)url withAuthorization:(NSString *)authorization;
+
 @end
