@@ -29,6 +29,8 @@
 		96D7DDF315C251E400199B36 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDE515C251E400199B36 /* SBJsonTokeniser.m */; };
 		96D7DDF415C251E400199B36 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDE715C251E400199B36 /* SBJsonUTF8Stream.m */; };
 		96D7DDF515C251E400199B36 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDE915C251E400199B36 /* SBJsonWriter.m */; };
+		96D7DDF815C2529D00199B36 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDF715C2529D00199B36 /* NSObject+Properties.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		96D7DDFB15C252D400199B36 /* NSString+PropertyKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDFA15C252D400199B36 /* NSString+PropertyKVC.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,10 @@
 		96D7DDE715C251E400199B36 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		96D7DDE815C251E400199B36 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		96D7DDE915C251E400199B36 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		96D7DDF615C2529D00199B36 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
+		96D7DDF715C2529D00199B36 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
+		96D7DDF915C252D400199B36 /* NSString+PropertyKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PropertyKVC.h"; sourceTree = "<group>"; };
+		96D7DDFA15C252D400199B36 /* NSString+PropertyKVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PropertyKVC.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +168,10 @@
 		96D7DDA815C2507B00199B36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				96D7DDF915C252D400199B36 /* NSString+PropertyKVC.h */,
+				96D7DDFA15C252D400199B36 /* NSString+PropertyKVC.m */,
+				96D7DDF615C2529D00199B36 /* NSObject+Properties.h */,
+				96D7DDF715C2529D00199B36 /* NSObject+Properties.m */,
 				96D7DDCD15C251D500199B36 /* NSString+base64.h */,
 				96D7DDCE15C251D500199B36 /* NSString+base64.m */,
 				96D7DDA915C2507B00199B36 /* MBase-Prefix.pch */,
@@ -332,6 +342,8 @@
 				96D7DDF315C251E400199B36 /* SBJsonTokeniser.m in Sources */,
 				96D7DDF415C251E400199B36 /* SBJsonUTF8Stream.m in Sources */,
 				96D7DDF515C251E400199B36 /* SBJsonWriter.m in Sources */,
+				96D7DDF815C2529D00199B36 /* NSObject+Properties.m in Sources */,
+				96D7DDFB15C252D400199B36 /* NSString+PropertyKVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
