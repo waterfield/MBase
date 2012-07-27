@@ -117,9 +117,11 @@
     NSString *className = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
     NSString *targetClassName = [NSString stringWithUTF8String:class_getName([obj class])];
     
+    //if they are the same type... well, this is easy :-)
     if([className isEqualToString:targetClassName]){
         return obj;
     }
+    //if the target type is NSNumber, and the source is NSString...
     if([className isEqualToString:@"NSString"] && [targetClassName isEqualToString:@"NSNumber"]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
