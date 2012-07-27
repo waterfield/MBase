@@ -11,18 +11,14 @@
 #import <objc/runtime.h>
 #import "SBJson.h"
 #import "NSString+base64.h"
+#import "NSObject+Properties.h"
 
 @implementation MBase
 
 - (id) initWithDictionary:(NSDictionary *)dictionary{
-    id currentClass = [self class];
-    
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-        
+    NSArray *properties = [self propertyNames];
+    for(int i = 0; i != [properties count]; i++){
+        NSString *propertyName = [properties objectAtIndex:i];
         id value = [dictionary objectForKey:[self camelToSnake:propertyName]];
         if(value){
             [self setValue:value forKey:propertyName];
