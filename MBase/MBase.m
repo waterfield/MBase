@@ -126,7 +126,7 @@
         return [formatter numberFromString:obj];
     }
     //last chance...
-    if([targetClassName isEqualToString:@"NSString"] && [obj hasPropertyNamed:@"stringValue"]){
+    if([targetClassName isEqualToString:@"NSString"] && [obj respondsToSelector:@selector(stringValue)]){
         return [obj stringValue];
     }
     //else...
