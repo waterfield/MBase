@@ -21,7 +21,8 @@
         NSString *propertyName = [properties objectAtIndex:i];
         id value = [dictionary objectForKey:[self camelToSnake:propertyName]];
         if(value){
-            [self setValue:value forKey:propertyName];
+            id convertedValue = [self convertObject:value toTypeForProperty:propertyName];
+            [self setValue:convertedValue forKey:propertyName];
         }
     }
     
@@ -110,6 +111,19 @@
                                                         range:NSMakeRange(0, [camel length])
                                                  withTemplate:@"_$1"];
     return [snake lowercaseString];
+}
+
+- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
+    NSString *className = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
+    NSString *targetClassName = [NSString stringWithUTF8String:class_getName([obj class])];
+    
+    if([className isEqualToString:targetClassName]){
+        return obj;
+    }else if([className isEqualToString:@"something"]){
+        //do something
+    }
+    //else...
+    return nil; //no conversion found
 }
 
 @end
