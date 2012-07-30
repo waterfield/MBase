@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9675B56F15C731D2006403EA /* NSNumber+Formatter.m */; };
 		96D7DDA615C2507B00199B36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA515C2507B00199B36 /* Foundation.framework */; };
 		96D7DDAB15C2507B00199B36 /* MBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96D7DDAA15C2507B00199B36 /* MBase.h */; };
 		96D7DDAD15C2507B00199B36 /* MBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDAC15C2507B00199B36 /* MBase.m */; };
@@ -58,6 +59,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9675B56E15C731D2006403EA /* NSNumber+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Formatter.h"; sourceTree = "<group>"; };
+		9675B56F15C731D2006403EA /* NSNumber+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Formatter.m"; sourceTree = "<group>"; };
+		9675B57115C731FB006403EA /* Formatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Formatters.h; sourceTree = "<group>"; };
 		96D7DDA215C2507B00199B36 /* libMBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMBase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96D7DDA515C2507B00199B36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96D7DDA915C2507B00199B36 /* MBase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBase-Prefix.pch"; sourceTree = "<group>"; };
@@ -163,6 +167,9 @@
 			children = (
 				96D7DDAA15C2507B00199B36 /* MBase.h */,
 				96D7DDAC15C2507B00199B36 /* MBase.m */,
+				9675B57115C731FB006403EA /* Formatters.h */,
+				9675B56E15C731D2006403EA /* NSNumber+Formatter.h */,
+				9675B56F15C731D2006403EA /* NSNumber+Formatter.m */,
 				96D7DDA815C2507B00199B36 /* Supporting Files */,
 			);
 			path = MBase;
@@ -349,6 +356,7 @@
 				96D7DDF515C251E400199B36 /* SBJsonWriter.m in Sources */,
 				96D7DDF815C2529D00199B36 /* NSObject+Properties.m in Sources */,
 				96D7DDFB15C252D400199B36 /* NSString+PropertyKVC.m in Sources */,
+				9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
