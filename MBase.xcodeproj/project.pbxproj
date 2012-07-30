@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9675B56F15C731D2006403EA /* NSNumber+Formatter.m */; };
+		9675B57215C734D8006403EA /* Formatters.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B57115C731FB006403EA /* Formatters.h */; };
+		9675B57315C734D8006403EA /* NSNumber+Formatter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B56E15C731D2006403EA /* NSNumber+Formatter.h */; };
 		96D7DDA615C2507B00199B36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA515C2507B00199B36 /* Foundation.framework */; };
 		96D7DDAB15C2507B00199B36 /* MBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96D7DDAA15C2507B00199B36 /* MBase.h */; };
 		96D7DDAD15C2507B00199B36 /* MBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDAC15C2507B00199B36 /* MBase.m */; };
@@ -52,6 +54,8 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				9675B57215C734D8006403EA /* Formatters.h in CopyFiles */,
+				9675B57315C734D8006403EA /* NSNumber+Formatter.h in CopyFiles */,
 				96D7DDAB15C2507B00199B36 /* MBase.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
