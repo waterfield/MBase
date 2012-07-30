@@ -34,10 +34,10 @@
 
 - (void) testConvertNSStringToNSNumber{
     TestModel *helper = [TestModel new];
-    NSString *string = @"123";
+    NSString *string = [NSString stringWithFormat:@"%@%@", @"12", @"3"];
     id output = [helper convertObject:string toTypeForProperty:@"aNumber"];
     
-    STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber");
+    STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber, instead it was %@", [output class]);
 }
 
 @end

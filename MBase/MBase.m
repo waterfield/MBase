@@ -114,22 +114,23 @@
 }
 
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
-    NSLog(@"---> %@", [self class]);
-    NSString *className = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
-    NSString *targetClassName = [NSString stringWithUTF8String:class_getName([obj class])];
+    NSString *STRING = @"T@\"NSString\"";
+    NSString *NUMBER = @"T@\"NSNumber\"";
+    
+    NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
     
     //if they are the same type... well, this is easy :-)
-    if([className isEqualToString:targetClassName]){
+    if([obj isKindOfClass:NSClassFromString(targetClass)] ){
         return obj;
     }
     //if the target type is NSNumber, and the source is NSString...
-    if([className isEqualToString:@"NSString"] && [targetClassName isEqualToString:@"NSNumber"]){
+    if([targetClass isEqualToString:NUMBER] && [obj isKindOfClass:[NSString class]]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         return [formatter numberFromString:obj];
     }
     //last chance...
-    if([targetClassName isEqualToString:@"NSString"] && [obj respondsToSelector:@selector(stringValue)]){
+    if([targetClass isEqualToString:STRING] && [obj respondsToSelector:@selector(stringValue)]){
         return [obj stringValue];
     }
     //else...
