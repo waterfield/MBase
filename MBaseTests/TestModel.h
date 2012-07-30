@@ -11,5 +11,6 @@
 @interface TestModel : MBase
 
 @property (strong) NSNumber *aNumber;
+@property (strong) NSString *aString;
 
 @end
