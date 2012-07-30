@@ -40,4 +40,12 @@
     STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber, instead it was %@", [output class]);
 }
 
+- (void) testConvertConstantStringToNSNumber{
+    TestModel *helper = [TestModel new];
+    NSString *string = @"123";
+    id output = [helper convertObject:string toTypeForProperty:@"aNumber"];
+    
+    STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber, instead it was %@", [output class]);
+}
+
 @end
