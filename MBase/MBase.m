@@ -114,10 +114,10 @@
 }
 
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
-    NSString *STRING = @"T@\"NSString\"";
     NSString *NUMBER = @"T@\"NSNumber\"";
     
     NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
+    if([targetClass isEqualToString:@"T@\"NSString\""]) targetClass = @"NSString";
     
     //if they are the same type... well, this is easy :-)
     if([obj isKindOfClass:NSClassFromString(targetClass)] ){
@@ -130,7 +130,7 @@
         return [formatter numberFromString:obj];
     }
     //last chance...
-    if([targetClass isEqualToString:STRING] && [obj respondsToSelector:@selector(stringValue)]){
+    if([targetClass isEqualToString:@"NSString"] && [obj respondsToSelector:@selector(stringValue)]){
         return [obj stringValue];
     }
     //else...
