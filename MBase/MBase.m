@@ -114,6 +114,7 @@
 }
 
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
+    NSLog(@"---> %@", [self class]);
     NSString *className = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
     NSString *targetClassName = [NSString stringWithUTF8String:class_getName([obj class])];
     

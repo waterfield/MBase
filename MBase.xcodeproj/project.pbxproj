@@ -31,6 +31,7 @@
 		96D7DDF515C251E400199B36 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDE915C251E400199B36 /* SBJsonWriter.m */; };
 		96D7DDF815C2529D00199B36 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDF715C2529D00199B36 /* NSObject+Properties.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96D7DDFB15C252D400199B36 /* NSString+PropertyKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDFA15C252D400199B36 /* NSString+PropertyKVC.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		96D8DF8C15C33F62008DE4FE /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D8DF8B15C33F62008DE4FE /* TestModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		96D7DDF715C2529D00199B36 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
 		96D7DDF915C252D400199B36 /* NSString+PropertyKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PropertyKVC.h"; sourceTree = "<group>"; };
 		96D7DDFA15C252D400199B36 /* NSString+PropertyKVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PropertyKVC.m"; sourceTree = "<group>"; };
+		96D8DF8A15C33F62008DE4FE /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
+		96D8DF8B15C33F62008DE4FE /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +187,8 @@
 			children = (
 				96D7DDC215C2507B00199B36 /* MBaseTests.h */,
 				96D7DDC315C2507B00199B36 /* MBaseTests.m */,
+				96D8DF8A15C33F62008DE4FE /* TestModel.h */,
+				96D8DF8B15C33F62008DE4FE /* TestModel.m */,
 				96D7DDBD15C2507B00199B36 /* Supporting Files */,
 			);
 			path = MBaseTests;
@@ -352,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96D7DDC415C2507B00199B36 /* MBaseTests.m in Sources */,
+				96D8DF8C15C33F62008DE4FE /* TestModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +403,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos5.1;
 			};
 			name = Debug;
@@ -415,7 +421,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos5.1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -455,6 +461,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBase/MBase-Prefix.pch";
 				INFOPLIST_FILE = "MBaseTests/MBaseTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -470,6 +477,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBase/MBase-Prefix.pch";
 				INFOPLIST_FILE = "MBaseTests/MBaseTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

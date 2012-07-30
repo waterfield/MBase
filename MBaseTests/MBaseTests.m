@@ -7,6 +7,14 @@
 //
 
 #import "MBaseTests.h"
+#import "TestModel.h"
+
+@interface MBase (Private)
+
+- (NSString *) camelToSnake:(NSString *)camel;
+- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName;
+
+@end
 
 @implementation MBaseTests
 
@@ -24,9 +32,12 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in MBaseTests");
+- (void) testConvertNSStringToNSNumber{
+    TestModel *helper = [TestModel new];
+    NSString *string = @"123";
+    id output = [helper convertObject:string toTypeForProperty:@"aNumber"];
+    
+    STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber");
 }
 
 @end
