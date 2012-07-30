@@ -12,5 +12,6 @@
 
 @property (strong) NSNumber *aNumber;
 @property (strong) NSString *aString;
+@property (strong) TestModel *aTest;
 
 @end

@@ -56,4 +56,12 @@
     STAssertTrue([output isKindOfClass:[NSString class]], @"Should be of type NSString, instead it was %@", [output class]);
 }
 
+- (void) testConvertNSStringToTestModel{
+    TestModel *helper = [TestModel new];
+    NSString *string = [NSString stringWithFormat:@"%@%@", @"12", @"3"];
+    id output = [helper convertObject:string toTypeForProperty:@"aTest"];
+    
+    STAssertNil(output, @"Expected conversion to produce nil, actual output %@", output);
+}
+
 @end
