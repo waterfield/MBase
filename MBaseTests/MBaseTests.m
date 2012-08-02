@@ -81,8 +81,9 @@
 }
 
 - (void) testRespectsAliases{
-    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"id" : [NSNumber numberWithInt:123] }];
-    STAssertEquals([output testId], 123, @"testId should have equaled 123, but instead was %i", [output testId]);
+    NSNumber *num = [NSNumber numberWithInt:123];
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"id" : num }];
+    STAssertTrue([[output testId] isEqualToNumber:num], @"testId should have equaled 123, but instead was %@", [output testId]);
 }
 
 @end
