@@ -62,7 +62,7 @@
     NSNumber *num = [[NSNumber alloc] initWithInt:123];
     id output = [helper convertObject:num toTypeForProperty:@"aNumber"];
     
-    STAssertTrue([[output aNumber] isEqualToNumber:num], @"aNumber should have been 123, but instead was %@", [output aNumber]);
+    STAssertTrue([output isEqualToNumber:num], @"aNumber should have been 123, but instead was %@", [output aNumber]);
 }
 
 - (void) testConvertNSStringToTestModel{
