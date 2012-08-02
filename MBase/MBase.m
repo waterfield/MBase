@@ -134,18 +134,17 @@
     return [mapping objectForKey:propertyName];
 }
 
-- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
-    NSString *NUMBER = @"T@\"NSNumber\"";
-    
+- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{   
     NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
     if([targetClass isEqualToString:@"T@\"NSString\""]) targetClass = @"NSString";
+    if([targetClass isEqualToString:@"T@\"NSNumber\""]) targetClass = @"NSNumber";
     
     //if they are the same type... well, this is easy :-)
     if([obj isKindOfClass:NSClassFromString(targetClass)] ){
         return obj;
     }
     //if the target type is NSNumber, and the source is NSString...
-    if([targetClass isEqualToString:NUMBER] && [obj isKindOfClass:[NSString class]]){
+    if([targetClass isEqualToString:@"NSNumber"] && [obj isKindOfClass:[NSString class]]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         return [formatter numberFromString:obj];
