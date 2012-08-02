@@ -8,10 +8,6 @@
 
 #import "TestModel.h"
 
-@implementation TestModel
-
-- (NSDictionary *) msbaseAliases {
-    return @{ @"testId" : @"id" };
-}
+@implementation TestModel with_aliases(@{ @"testId" : @"id" })
 
 @end

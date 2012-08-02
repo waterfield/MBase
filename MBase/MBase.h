@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define with_aliases(mapping) - (NSDictionary *) msbaseAliases { return mapping; }
+
 @interface MBase : NSObject
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
