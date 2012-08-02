@@ -57,6 +57,14 @@
     STAssertTrue([output isKindOfClass:[NSString class]], @"Should be of type NSString, instead it was %@", [output class]);
 }
 
+- (void) testConvertNSNumberToNSNumber{
+    TestModel *helper = [TestModel new];
+    NSNumber *num = [[NSNumber alloc] initWithInt:123];
+    id output = [helper convertObject:num toTypeForProperty:@"aNumber"];
+    
+    STAssertTrue([[output aNumber] isEqualToNumber:num], @"aNumber should have been 123, but instead was %@", [output aNumber]);
+}
+
 - (void) testConvertNSStringToTestModel{
     TestModel *helper = [TestModel new];
     NSString *string = [NSString stringWithFormat:@"%@%@", @"12", @"3"];
