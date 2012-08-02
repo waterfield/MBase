@@ -10,6 +10,7 @@
 
 @interface TestModel : MBase
 
+@property (strong) NSNumber *testId;
 @property (strong) NSNumber *aNumber;
 @property (strong) NSString *aString;
 @property (strong) TestModel *aTest;

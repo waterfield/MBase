@@ -13,6 +13,7 @@
 
 - (NSString *) camelToSnake:(NSString *)camel;
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName;
+- (NSString *) translatePropertyName:(NSString *)propertyName;
 
 @end
 
@@ -62,6 +63,18 @@
     id output = [helper convertObject:string toTypeForProperty:@"aTest"];
     
     STAssertNil(output, @"Expected conversion to produce nil, actual output %@", output);
+}
+
+- (void) testAliasLookup {
+    TestModel *helper = [TestModel new];
+    NSString *alias = [helper translatePropertyName:@"testId"];
+    
+    STAssertTrue([alias isEqualToString:@"id"], @"alias should be equal to 'id', but instead was %@", alias);
+}
+
+- (void) testRespectsAliases{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"id" : @"123" }];
+    STAssertEquals([output testId], 123, @"testId should have equaled 123, but instead was %i", [output testId]);
 }
 
 @end

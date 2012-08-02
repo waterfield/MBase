@@ -19,7 +19,7 @@
     NSArray *properties = [self propertyNames];
     for(int i = 0; i != [properties count]; i++){
         NSString *propertyName = [properties objectAtIndex:i];
-        id value = [dictionary objectForKey:[self camelToSnake:propertyName]];
+        id value = [dictionary objectForKey:[self translatePropertyName:propertyName]];
         if(value){
             id convertedValue = [self convertObject:value toTypeForProperty:propertyName];
             [self setValue:convertedValue forKey:propertyName];
@@ -100,6 +100,11 @@
 }
 
 //---- private ----
+- (NSString *) translatePropertyName:(NSString *)propertyName{
+    NSString *alias = [self aliasForProperty:propertyName];
+    return alias ? alias : [self camelToSnake:propertyName];
+}
+
 - (NSString *) camelToSnake:(NSString *)camel{
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([A-Z])"
@@ -111,6 +116,16 @@
                                                         range:NSMakeRange(0, [camel length])
                                                  withTemplate:@"_$1"];
     return [snake lowercaseString];
+}
+
+- (NSString *) aliasForProperty:(NSString *)propertyName{
+    NSDictionary *mapping = [self respondsToSelector:@selector(msbaseAliases)] == false ? nil
+                          : [self performSelector:@selector(msbaseAliases)];
+    
+    if(mapping == nil | [mapping isKindOfClass:[NSDictionary class]] == false)
+        return nil;
+    
+    return [mapping objectForKey:propertyName];
 }
 
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
@@ -136,5 +151,6 @@
     //else...
     return nil; //no conversion found
 }
+
 
 @end

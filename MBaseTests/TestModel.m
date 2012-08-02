@@ -10,4 +10,8 @@
 
 @implementation TestModel
 
+- (NSDictionary *) msbaseAliases {
+    return @{ @"testId" : @"id" };
+}
+
 @end
