@@ -106,6 +106,9 @@
 }
 
 - (NSString *) camelToSnake:(NSString *)camel{
+    //responsible for translating camel case to snake case.
+    //generally this is not called directly... only really intended for use by
+    //- (NSString *) translatePropertyName:(NSString*)propertyName
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([A-Z])"
                                                                            options:NSRegularExpressionAnchorsMatchLines
@@ -119,6 +122,9 @@
 }
 
 - (NSString *) aliasForProperty:(NSString *)propertyName{
+    //responsible for looking up method aliases.
+    //generally this is not called directly... only really intended for use by
+    //- (NSString *) translatePropertyName:(NSString*)propertyName
     NSDictionary *mapping = [self respondsToSelector:@selector(msbaseAliases)] == false ? nil
                           : [self performSelector:@selector(msbaseAliases)];
     
