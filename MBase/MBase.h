@@ -14,6 +14,8 @@
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
 
++ (void) setUrlBase:(NSString *)url;
+
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
 + (id) postData:(NSDictionary *)data toUrl:(NSString *)url;

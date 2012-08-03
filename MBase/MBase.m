@@ -13,6 +13,8 @@
 #import "NSString+base64.h"
 #import "NSObject+Properties.h"
 
+static NSURL *urlBase;
+
 @implementation MBase
 
 - (id) initWithDictionary:(NSDictionary *)dictionary{
@@ -27,6 +29,10 @@
     }
     
     return self;
+}
+
++ (void) setUrlBase:(NSString *)url{
+    urlBase = [NSURL URLWithString:url];
 }
 
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password{
@@ -52,7 +58,11 @@
     if(authorization){
         [request addValue:authorization forHTTPHeaderField:@"Authorization"];
     }
-    [request setURL:[NSURL URLWithString:url]];
+    if(urlBase){
+        [request setURL:[NSURL URLWithString:url relativeToURL:urlBase]];
+    }else{
+        [request setURL:[NSURL URLWithString:url]];
+    }
     
     NSError *error = [[NSError alloc] init];
     NSHTTPURLResponse *responseCode = nil;
@@ -80,7 +90,11 @@
     if(authorization){
         [request addValue:authorization forHTTPHeaderField:@"Authorization"];
     }
-    [request setURL:[NSURL URLWithString:url]];
+    if(urlBase){
+        [request setURL:[NSURL URLWithString:url relativeToURL:urlBase]];
+    }else{
+        [request setURL:[NSURL URLWithString:url]];
+    }
     
     NSError *error = [[NSError alloc] init];
     NSHTTPURLResponse *responseCode = nil;
