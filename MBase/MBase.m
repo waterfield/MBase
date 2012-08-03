@@ -164,7 +164,7 @@ static NSURL *urlBase;
         bool value = [obj boolValue];
         return [NSNumber numberWithBool:value];
     }
-    //if target type is boolean, and the source is NSString...
+    //if target type is boolean, and the source is NSNumber...
     if([targetClass isEqualToString:@"TB"] && [obj isKindOfClass:[NSNumber class]]){
         bool value = [obj boolValue];
         return [NSNumber numberWithBool:value];
