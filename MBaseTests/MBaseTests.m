@@ -73,6 +73,15 @@
     STAssertNil(output, @"Expected conversion to produce nil, actual output %@", output);
 }
 
+- (void) testConvertNSStringToBool{
+    TestModel *helper = [TestModel new];
+    NSString *string = @"1";
+    id output = [helper convertObject:string toTypeForProperty:@"aBool"];
+    
+    STAssertTrue([output isKindOfClass:[NSNumber class]], @"Should be of type NSNumber, instead it was %@", [output class]);
+    STAssertTrue([output boolValue], @"Boolean value of output should have been true, but instead was false");
+}
+
 - (void) testAliasLookup {
     TestModel *helper = [TestModel new];
     NSString *alias = [helper translatePropertyName:@"testId"];
@@ -84,6 +93,30 @@
     NSNumber *num = [NSNumber numberWithInt:123];
     TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"id" : num }];
     STAssertTrue([[output testId] isEqualToNumber:num], @"testId should have equaled 123, but instead was %@", [output testId]);
+}
+
+- (void) testBoolBoxingOne{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : @"1" }];
+    
+    STAssertTrue(output.aBool, @"aBool should have been true, it was false");
+}
+
+- (void) testBoolBoxingZero{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : @"0" }];
+    
+    STAssertFalse(output.aBool, @"aBool should have been false, it was true");
+}
+
+- (void) testBoolBoxingTrue{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : @"true" }];
+    
+    STAssertTrue(output.aBool, @"aBool should have been true, it was false");
+}
+
+- (void) testBoolBoxingFalse{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : @"false" }];
+    
+    STAssertFalse(output.aBool, @"aBool should have been false, it was true");
 }
 
 @end

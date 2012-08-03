@@ -153,15 +153,20 @@ static NSURL *urlBase;
     if([targetClass isEqualToString:@"T@\"NSString\""]) targetClass = @"NSString";
     if([targetClass isEqualToString:@"T@\"NSNumber\""]) targetClass = @"NSNumber";
     
-    //if they are the same type... well, this is easy :-)
-    if([obj isKindOfClass:NSClassFromString(targetClass)] ){
-        return obj;
-    }
     //if the target type is NSNumber, and the source is NSString...
     if([targetClass isEqualToString:@"NSNumber"] && [obj isKindOfClass:[NSString class]]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         return [formatter numberFromString:obj];
+    }
+    //if target type is boolean, and the source is NSString...
+    if([targetClass isEqualToString:@"TB"] && [obj isKindOfClass:[NSString class]]){
+        bool value = [obj boolValue];
+        return [NSNumber numberWithBool:value];
+    }
+    //if they are the same type... well, this is easy :-)
+    if([obj isKindOfClass:NSClassFromString(targetClass)] ){
+        return obj;
     }
     //last chance...
     if([targetClass isEqualToString:@"NSString"] && [obj respondsToSelector:@selector(stringValue)]){

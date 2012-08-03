@@ -14,5 +14,6 @@
 @property (strong) NSNumber *aNumber;
 @property (strong) NSString *aString;
 @property (strong) TestModel *aTest;
+@property bool aBool;
 
 @end
