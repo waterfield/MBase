@@ -119,4 +119,16 @@
     STAssertFalse(output.aBool, @"aBool should have been false, it was true");
 }
 
+- (void) testBoolBoxingOneNumber{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : [NSNumber numberWithInt:1] }];
+    
+    STAssertTrue(output.aBool, @"aBool should have been true, it was false");
+}
+
+- (void) testBoolBoxingZeroNumber{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_bool" : [NSNumber numberWithInt:0] }];
+    
+    STAssertFalse(output.aBool, @"aBool should have been false, it was true");
+}
+
 @end
