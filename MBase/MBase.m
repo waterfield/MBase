@@ -31,12 +31,12 @@ static NSURL *urlBase;
     return self;
 }
 
-- (id) initWithContentFromUrl:(NSString *)url{
-    return [self initWithContentFromUrl:url withAuthorization:nil];
+- (id) initWithContentFromPath:(NSString *)path{
+    return [self initWithContentFromPath:path withAuthorization:nil];
 }
 
-- (id) initWithContentFromUrl:(NSString *)url withAuthorization:(NSString *)authorization{
-    NSDictionary *rawData = [[self class] getDataFromUrl:url withAuthorization:authorization];
+- (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
+    NSDictionary *rawData = [[self class] getDataFromPath:path withAuthorization:authorization];
     id instance = nil;
     if(rawData){
         instance = [self initWithDictionary:rawData];
@@ -53,11 +53,11 @@ static NSURL *urlBase;
     return [authorization base64Encode];
 }
 
-+ (id) postData:(NSDictionary *)data toUrl:(NSString *)url{
-    return [self postData:data toUrl:url withAuthorization:nil];
++ (id) postData:(NSDictionary *)data toPath:(NSString *)path{
+    return [self postData:data toPath:path withAuthorization:nil];
 }
 
-+ (id) postData:(NSDictionary *)data toUrl:(NSString *)url withAuthorization:(NSString *)authorization{
++ (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"POST"];
     if(data){
@@ -72,9 +72,9 @@ static NSURL *urlBase;
         [request addValue:authorization forHTTPHeaderField:@"Authorization"];
     }
     if(urlBase){
-        [request setURL:[NSURL URLWithString:url relativeToURL:urlBase]];
+        [request setURL:[NSURL URLWithString:path relativeToURL:urlBase]];
     }else{
-        [request setURL:[NSURL URLWithString:url]];
+        [request setURL:[NSURL URLWithString:path]];
     }
     
     NSError *error = [[NSError alloc] init];
@@ -93,20 +93,20 @@ static NSURL *urlBase;
     return [parser objectWithString:stringData];
 }
 
-+ (id) getDataFromUrl:(NSString *)url{
-    return [self getDataFromUrl:url withAuthorization:nil];
++ (id) getDataFromPath:(NSString *)path{
+    return [self getDataFromPath:path withAuthorization:nil];
 }
 
-+ (id) getDataFromUrl:(NSString *)url withAuthorization:(NSString *)authorization{
++ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     if(authorization){
         [request addValue:authorization forHTTPHeaderField:@"Authorization"];
     }
     if(urlBase){
-        [request setURL:[NSURL URLWithString:url relativeToURL:urlBase]];
+        [request setURL:[NSURL URLWithString:path relativeToURL:urlBase]];
     }else{
-        [request setURL:[NSURL URLWithString:url]];
+        [request setURL:[NSURL URLWithString:path]];
     }
     
     NSError *error = [[NSError alloc] init];

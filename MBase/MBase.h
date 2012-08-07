@@ -13,16 +13,30 @@
 @interface MBase : NSObject
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
-- (id) initWithContentFromUrl:(NSString *)url;
-- (id) initWithContentFromUrl:(NSString *)url withAuthorization:(NSString *)authorization;
+- (id) initWithContentFromPath:(NSString *)path;
+- (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 + (void) setUrlBase:(NSString *)url;
 
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
-+ (id) postData:(NSDictionary *)data toUrl:(NSString *)url;
-+ (id) postData:(NSDictionary *)data toUrl:(NSString *)url withAuthorization:(NSString *)authorization;
-+ (id) getDataFromUrl:(NSString *)url;
-+ (id) getDataFromUrl:(NSString *)url withAuthorization:(NSString *)authorization;
++ (id) postData:(NSDictionary *)data toPath:(NSString *)path;
++ (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization;
++ (id) getDataFromPath:(NSString *)path;
++ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
+
+
+/*
+ Thoughts:
+ 
+ Calling setUrlBase: should be required.
+ 
+ The "Path" will be used as a means of looking up an object in cache.
+ 
+ By default GETs are cached indefiniately. - Nothing else.
+        --> Options: Disabled caching, or set max age.
+ 
+ */
+
 
 @end
