@@ -31,6 +31,19 @@ static NSURL *urlBase;
     return self;
 }
 
+- (id) initWithContentFromUrl:(NSString *)url{
+    return [self initWithContentFromUrl:url withAuthorization:nil];
+}
+
+- (id) initWithContentFromUrl:(NSString *)url withAuthorization:(NSString *)authorization{
+    NSDictionary *rawData = [[self class] getDataFromUrl:url withAuthorization:authorization];
+    id instance = nil;
+    if(rawData){
+        instance = [self initWithDictionary:rawData];
+    }
+    return instance;
+}
+
 + (void) setUrlBase:(NSString *)url{
     urlBase = [NSURL URLWithString:url];
 }

@@ -13,6 +13,8 @@
 @interface MBase : NSObject
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
+- (id) initWithContentFromUrl:(NSString *)url;
+- (id) initWithContentFromUrl:(NSString *)url withAuthorization:(NSString *)authorization;
 
 + (void) setUrlBase:(NSString *)url;
 
