@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #define _belongsTo @"belongsTo"
-#define _className @"className"
 #define _foreignKey @"foreignKey"
 #define with_aliases(mapping) - (NSDictionary *) msbaseAliases { return mapping; }
 #define with_relationships(mapping) - (NSArray *) mbaseRelationships { return mapping; }

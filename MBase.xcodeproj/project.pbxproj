@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9650CCB015D9985800F1340C /* AnotherTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9650CCAF15D9985800F1340C /* AnotherTestModel.m */; };
 		9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9675B56F15C731D2006403EA /* NSNumber+Formatter.m */; };
 		9675B57215C734D8006403EA /* Formatters.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B57115C731FB006403EA /* Formatters.h */; };
 		9675B57315C734D8006403EA /* NSNumber+Formatter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B56E15C731D2006403EA /* NSNumber+Formatter.h */; };
@@ -63,6 +64,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9650CCAE15D9985800F1340C /* AnotherTestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnotherTestModel.h; sourceTree = "<group>"; };
+		9650CCAF15D9985800F1340C /* AnotherTestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnotherTestModel.m; sourceTree = "<group>"; };
 		9675B56E15C731D2006403EA /* NSNumber+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Formatter.h"; sourceTree = "<group>"; };
 		9675B56F15C731D2006403EA /* NSNumber+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Formatter.m"; sourceTree = "<group>"; };
 		9675B57115C731FB006403EA /* Formatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Formatters.h; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 				96D7DDC315C2507B00199B36 /* MBaseTests.m */,
 				96D8DF8A15C33F62008DE4FE /* TestModel.h */,
 				96D8DF8B15C33F62008DE4FE /* TestModel.m */,
+				9650CCAE15D9985800F1340C /* AnotherTestModel.h */,
+				9650CCAF15D9985800F1340C /* AnotherTestModel.m */,
 				96D7DDBD15C2507B00199B36 /* Supporting Files */,
 			);
 			path = MBaseTests;
@@ -370,6 +375,7 @@
 			files = (
 				96D7DDC415C2507B00199B36 /* MBaseTests.m in Sources */,
 				96D8DF8C15C33F62008DE4FE /* TestModel.m in Sources */,
+				9650CCB015D9985800F1340C /* AnotherTestModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

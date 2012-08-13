@@ -8,12 +8,14 @@
 
 #import "MBaseTests.h"
 #import "TestModel.h"
+#import "AnotherTestModel.h"
 
 @interface MBase (Private)
 
 - (NSString *) camelToSnake:(NSString *)camel;
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName;
 - (NSString *) translatePropertyName:(NSString *)propertyName;
+- (NSString *) foreignKeyForProperty:(NSString *)propertyName;
 
 @end
 
@@ -130,5 +132,31 @@
     
     STAssertFalse(output.aBool, @"aBool should have been false, it was true");
 }
+
+- (void) testAnotherModelHasRelationships{
+    AnotherTestModel *helper = [AnotherTestModel new];
+    
+    STAssertTrue([helper respondsToSelector:@selector(mbaseRelationships)], @"does not responds to mbaseRelationships");
+}
+
+- (void) testTestModelHasRelationships{
+    TestModel *helper = [TestModel new];
+    
+    STAssertFalse([helper respondsToSelector:@selector(mbaseRelationships)], @"responds to mbaseRelationships");
+}
+
+- (void) testInvalidRelationship {
+    TestModel *model = [TestModel new];
+    
+    STAssertNil([model foreignKeyForProperty: @"invalidProperty"], @"does not return nil for invalid relationship");
+}
+
+- (void) testValidRelationship {
+    AnotherTestModel *model = [AnotherTestModel new];
+    NSString *foreignKey =[model foreignKeyForProperty: @"testModel"];
+    
+    STAssertTrue([foreignKey isEqualToString:@"testModelId"], @"should have returned 'testModelId', instead returned %@", foreignKey);
+}
+
 
 @end

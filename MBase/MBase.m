@@ -25,6 +25,11 @@ static NSURL *urlBase;
         if(value){
             id convertedValue = [self convertObject:value toTypeForProperty:propertyName];
             [self setValue:convertedValue forKey:propertyName];
+        }else{
+            NSString *foreignKey = [self foreignKeyForProperty:propertyName];
+            if(foreignKey){
+                [NSException raise:@"Unimplemented feature!" format:@"foreign key for %@ not handled", propertyName];
+            }
         }
     }
     
@@ -177,7 +182,24 @@ static NSURL *urlBase;
     return [mapping objectForKey:propertyName];
 }
 
-- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{   
+- (NSString *) foreignKeyForProperty:(NSString *)propertyName{
+    if (! [self respondsToSelector:@selector(mbaseRelationships)] ) {
+        return nil;
+    }
+    
+    NSArray *foreignKeys = [self performSelector:@selector(mbaseRelationships)];
+    
+    for (int i = 0; i < [foreignKeys count]; i++) {
+        NSDictionary *foreignKey = [foreignKeys objectAtIndex:i];
+        if ([[foreignKey objectForKey: _belongsTo] isEqualToString:propertyName]) {
+            return [foreignKey objectForKey: _foreignKey];
+        }
+    }
+    
+    return nil;
+}
+
+- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
     NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
     if([targetClass isEqualToString:@"T@\"NSString\""]) targetClass = @"NSString";
     if([targetClass isEqualToString:@"T@\"NSNumber\""]) targetClass = @"NSNumber";
@@ -198,6 +220,11 @@ static NSURL *urlBase;
         bool value = [obj boolValue];
         return [NSNumber numberWithBool:value];
     }
+    //if target type is MBase, and source is NSDictionary...
+    //if something...
+    //      return [propertyClass initWithDictionary...];
+    //}
+    
     //if they are the same type... well, this is easy :-)
     if([obj isKindOfClass:NSClassFromString(targetClass)] ){
         return obj;
