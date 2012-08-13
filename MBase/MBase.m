@@ -44,6 +44,22 @@ static NSURL *urlBase;
     return instance;
 }
 
++ (NSArray *) objectsFromPath:(NSString *)path{
+    return [self objectsFromPath:path withAuthorization:nil];
+}
+
++ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
+    NSArray *rawResults = [self getDataFromPath:path withAuthorization:authorization];
+    NSMutableArray *results = [NSMutableArray new];
+    
+    for (int i = 0; i < rawResults.count; i++) {
+        id instance = [[self alloc] initWithDictionary: [rawResults objectAtIndex: i]];
+        [results addObject:instance];
+    }
+    
+    return results;
+}
+
 + (void) setUrlBase:(NSString *)url{
     urlBase = [NSURL URLWithString:url];
 }

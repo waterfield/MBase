@@ -16,8 +16,10 @@
 - (id) initWithContentFromPath:(NSString *)path;
 - (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
-+ (void) setUrlBase:(NSString *)url;
++ (NSArray *) objectsFromPath:(NSString *)path;
++ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
++ (void) setUrlBase:(NSString *)url;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path;
