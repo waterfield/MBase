@@ -19,6 +19,8 @@
 - (id) initWithContentFromPath:(NSString *)path;
 - (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
+- (id) inspect;
+
 + (NSArray *) objectsFromPath:(NSString *)path;
 + (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 

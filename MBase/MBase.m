@@ -49,6 +49,11 @@ static NSURL *urlBase;
     return instance;
 }
 
+- (id) inspect{
+    SBJsonWriter *helper = [SBJsonWriter new];
+    return [helper stringWithObject:self];
+}
+
 + (NSArray *) objectsFromPath:(NSString *)path{
     return [self objectsFromPath:path withAuthorization:nil];
 }
