@@ -158,5 +158,23 @@
     STAssertTrue([foreignKey isEqualToString:@"testModelId"], @"should have returned 'testModelId', instead returned %@", foreignKey);
 }
 
+- (void) testEmbeddedObject {
+    // check for embedded object
+    NSDictionary *testData = @{ @"a_number": @123, @"a_string": @"aString", @"an_embedded_model": @{@"a_string": @"anEmbeddedString", @"a_number": @456}};
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    STAssertTrue([[testModel aNumber] isEqualToNumber: @123], @"");
+    STAssertTrue([[testModel aString] isEqualToString: @"aString"], @"");
+    
+    EmbeddedTestModel *embeddedModel = [testModel anEmbeddedModel];
+    STAssertNotNil(embeddedModel, @"embedded model is nil");
+    
+    STAssertTrue([[embeddedModel aNumber] isEqualToNumber: @456], @"");
+    STAssertTrue([[embeddedModel aString] isEqualToString: @"anEmbeddedString"], @"");
+
+    //make assertion
+}
+
 
 @end

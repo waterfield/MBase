@@ -7,6 +7,7 @@
 //
 
 #import "MBase.h"
+#import "EmbeddedTestModel.h"
 
 @interface TestModel : MBase
 
@@ -15,5 +16,6 @@
 @property (strong) NSString *aString;
 @property (strong) TestModel *aTest;
 @property bool aBool;
+@property (strong) EmbeddedTestModel *anEmbeddedModel;
 
 @end

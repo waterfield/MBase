@@ -201,9 +201,12 @@ static NSURL *urlBase;
 
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
     NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
-    if([targetClass isEqualToString:@"T@\"NSString\""]) targetClass = @"NSString";
-    if([targetClass isEqualToString:@"T@\"NSNumber\""]) targetClass = @"NSNumber";
     
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"T@\"([^\"]+)\"" options:NSRegularExpressionAnchorsMatchLines error:nil];
+   targetClass = [regex stringByReplacingMatchesInString:targetClass options:0 range:NSMakeRange(0, [targetClass length]) withTemplate:@"$1"];
+    
+    Class class = NSClassFromString(targetClass);
+        
     //if the target type is NSNumber, and the source is NSString...
     if([targetClass isEqualToString:@"NSNumber"] && [obj isKindOfClass:[NSString class]]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
@@ -220,10 +223,10 @@ static NSURL *urlBase;
         bool value = [obj boolValue];
         return [NSNumber numberWithBool:value];
     }
-    //if target type is MBase, and source is NSDictionary...
-    //if something...
-    //      return [propertyClass initWithDictionary...];
-    //}
+    
+    if([class isSubclassOfClass:[MBase class]] &&[obj isKindOfClass:[NSDictionary class]]){
+        return [[class alloc] initWithDictionary:obj];
+    }
     
     //if they are the same type... well, this is easy :-)
     if([obj isKindOfClass:NSClassFromString(targetClass)] ){
