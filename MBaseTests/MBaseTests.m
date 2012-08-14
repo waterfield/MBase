@@ -9,6 +9,8 @@
 #import "MBaseTests.h"
 #import "TestModel.h"
 #import "AnotherTestModel.h"
+#import "SBJson.h"
+#import "Transaction.h"
 
 @interface MBase (Private)
 
@@ -159,7 +161,6 @@
 }
 
 - (void) testEmbeddedObject {
-    // check for embedded object
     NSDictionary *testData = @{ @"a_number": @123, @"a_string": @"aString", @"an_embedded_model": @{@"a_string": @"anEmbeddedString", @"a_number": @456}};
     
     TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
@@ -176,5 +177,47 @@
     //make assertion
 }
 
+- (void) testEmbeddedObjectWithJson {
+    // check for embedded object
+    
+    NSString *testJson = @"{\"a_number\":123,\"a_string\":\"aString\",\"an_embedded_model\":{\"a_string\":\"anEmbeddedString\",\"a_number\":456}}";
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSDictionary *testData = [parser objectWithString:testJson];
+
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    STAssertTrue([[testModel aNumber] isEqualToNumber: @123], @"should be 123, but was %@", [testModel aNumber]);
+    STAssertTrue([[testModel aString] isEqualToString: @"aString"], @"should be 'aString', but was %@", [testModel aString]);
+    
+    EmbeddedTestModel *embeddedModel = [testModel anEmbeddedModel];
+    STAssertNotNil(embeddedModel, @"embedded model is nil");
+    
+    STAssertTrue([[embeddedModel aNumber] isEqualToNumber: @456], @"");
+    STAssertTrue([[embeddedModel aString] isEqualToString: @"anEmbeddedString"], @"");
+    
+    //make assertion
+}
+
+- (void) testEmbeddedObjectWithJsonTwo {
+    // check for embedded object
+    
+    NSString *testJson = @"{\"a_number\":123,\"a_string\":\"aString\",\"an_embedded_model\":\"{\\\"a_string\\\":\\\"anEmbeddedString\\\",\\\"a_number\\\":456}\"}";
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSDictionary *testData = [parser objectWithString:testJson];
+    
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    STAssertTrue([[testModel aNumber] isEqualToNumber: @123], @"should be 123, but was %@", [testModel aNumber]);
+    STAssertTrue([[testModel aString] isEqualToString: @"aString"], @"should be 'aString', but was %@", [testModel aString]);
+    
+    EmbeddedTestModel *embeddedModel = [testModel anEmbeddedModel];
+    
+    //assert that we cannot handle a object (incorrectly) encoded as a string
+    STAssertNil(embeddedModel, @"embedded model should be nil");
+}
 
 @end
