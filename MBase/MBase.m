@@ -224,6 +224,7 @@ static NSURL *urlBase;
         return [NSNumber numberWithBool:value];
     }
     
+    //if the target class is a child of MBase, and the source is NSDictionary...
     if([class isSubclassOfClass:[MBase class]] &&[obj isKindOfClass:[NSDictionary class]]){
         return [[class alloc] initWithDictionary:obj];
     }
