@@ -24,7 +24,9 @@ static NSURL *urlBase;
         id value = [dictionary objectForKey:[self translatePropertyName:propertyName]];
         if(value){
             id convertedValue = [self convertObject:value toTypeForProperty:propertyName];
-            [self setValue:convertedValue forKey:propertyName];
+            @try{
+                [self setValue:convertedValue forKey:propertyName];
+            }@catch(id exception){}
         }else{
             NSString *foreignKey = [self foreignKeyForProperty:propertyName];
             if(foreignKey){
@@ -179,7 +181,7 @@ static NSURL *urlBase;
     //generally this is not called directly... only really intended for use by
     //- (NSString *) translatePropertyName:(NSString*)propertyName
     NSDictionary *mapping = [self respondsToSelector:@selector(msbaseAliases)] == false ? nil
-                          : [self performSelector:@selector(msbaseAliases)];
+    : [self performSelector:@selector(msbaseAliases)];
     
     if(mapping == nil | [mapping isKindOfClass:[NSDictionary class]] == false)
         return nil;
@@ -204,14 +206,53 @@ static NSURL *urlBase;
     return nil;
 }
 
+- (NSArray *)objectsForHasManyRelationship:(NSString *)propertyName withArray:(NSArray *)relationArray {
+    NSMutableArray *objects = [NSMutableArray new];
+    
+    if (! [self respondsToSelector:@selector(mbaseRelationships)] ) {
+        return nil;
+    }
+    
+    NSArray *foreignKeys = [self performSelector:@selector(mbaseRelationships)];
+    
+    for (int i = 0; i < [foreignKeys count]; i++) {
+        NSDictionary *foreignKey = [foreignKeys objectAtIndex:i];
+        if ([[foreignKey objectForKey:_hasMany] isEqualToString:propertyName]) {
+            NSString *hasManyName = [foreignKey objectForKey:_hasMany];
+            // get class name based on relation name
+            NSString *className = [hasManyName substringToIndex:[hasManyName length] - 1];
+            className = [className stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[className substringToIndex:1] uppercaseString]];
+            Class class = NSClassFromString(className);
+            if (![class isSubclassOfClass:[MBase class]]) {
+                // the class is not valid
+                return nil;
+            }
+            for (NSDictionary *objectDictionary in relationArray) {
+                id object = [[class alloc] initWithDictionary:objectDictionary];
+                [objects addObject:object];
+            }
+        }
+    }
+    
+    return objects;
+}
+
 - (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName{
-    NSString *targetClass = [NSString stringWithUTF8String:[self typeOfPropertyNamed:propertyName]];
+    const char *buffer = [self typeOfPropertyNamed:propertyName];
+    
+    NSString *targetClass = [[NSString alloc] initWithCString:buffer encoding:NSASCIIStringEncoding];
+    NSString *originalTargetClass = [NSString stringWithFormat:@"%@", targetClass];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"T@\"([^\"]+)\"" options:NSRegularExpressionAnchorsMatchLines error:nil];
-   targetClass = [regex stringByReplacingMatchesInString:targetClass options:0 range:NSMakeRange(0, [targetClass length]) withTemplate:@"$1"];
+    targetClass = [regex stringByReplacingMatchesInString:targetClass options:0 range:NSMakeRange(0, [targetClass length]) withTemplate:@"$1"];
     
     Class class = NSClassFromString(targetClass);
-        
+    
+    //if the target type is NSArray, deal with _hasMany relationship
+    if([targetClass isEqualToString:@"NSArray"]) {
+        return [self objectsForHasManyRelationship:propertyName withArray:obj];
+    }
+    
     //if the target type is NSNumber, and the source is NSString...
     if([targetClass isEqualToString:@"NSNumber"] && [obj isKindOfClass:[NSString class]]){
         NSNumberFormatter * formatter = [NSNumberFormatter new];
@@ -229,6 +270,13 @@ static NSURL *urlBase;
         return [NSNumber numberWithBool:value];
     }
     
+    //if the target type is NSDate, and the source is NSString...
+    if([targetClass isEqualToString:@"NSDate"] && [obj isKindOfClass:[NSString class]]) {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        return [dateFormatter dateFromString:obj];
+    }
+    
     //if the target class is a child of MBase, and the source is NSDictionary...
     if([class isSubclassOfClass:[MBase class]] &&[obj isKindOfClass:[NSDictionary class]]){
         return [[class alloc] initWithDictionary:obj];
@@ -243,6 +291,9 @@ static NSURL *urlBase;
         return [obj stringValue];
     }
     //else...
+    if(obj != nil){
+        NSLog(@"No conversion found for %@ (%@/%@) -> %@", propertyName, targetClass, originalTargetClass, obj);
+    }
     return nil; //no conversion found
 }
 

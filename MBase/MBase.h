@@ -10,6 +10,7 @@
 
 #define _belongsTo @"belongsTo"
 #define _foreignKey @"foreignKey"
+#define _hasMany @"hasMany"
 #define with_aliases(mapping) - (NSDictionary *) msbaseAliases { return mapping; }
 #define with_relationships(mapping) - (NSArray *) mbaseRelationships { return mapping; }
 
