@@ -14,7 +14,7 @@
 #define with_aliases(mapping) - (NSDictionary *) msbaseAliases { return mapping; }
 #define with_relationships(mapping) - (NSArray *) mbaseRelationships { return mapping; }
 
-@interface MBase : NSObject
+@interface MBase : NSObject <NSCoding>
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
 - (id) initWithContentFromPath:(NSString *)path;
@@ -24,6 +24,9 @@
 
 + (NSArray *) objectsFromPath:(NSString *)path;
 + (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
+
++ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback;
++ (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback;
 
 + (void) setUrlBase:(NSString *)url;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
@@ -42,7 +45,7 @@
  The "Path" will be used as a means of looking up an object in cache.
  
  By default GETs are cached indefiniately. - Nothing else.
-        --> Options: Disabled caching, or set max age.
+ --> Options: Disabled caching, or set max age.
  
  */
 
