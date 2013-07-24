@@ -22,5 +22,6 @@
 @property (strong) TestModel *aTest;
 @property bool aBool;
 @property (strong) EmbeddedTestModel *anEmbeddedModel;
+@property (strong) NSDate *aDate;
 
 @end

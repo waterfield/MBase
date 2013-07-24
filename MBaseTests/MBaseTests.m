@@ -225,4 +225,10 @@
     STAssertNil(embeddedModel, @"embedded model should be nil");
 }
 
+- (void) testAltDateSyntax{
+     TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_date" : @"2013-07-10T00:00:00" }];
+    
+    STAssertNotNil(output.aDate, @"a date should not be nil");
+}
+
 @end
