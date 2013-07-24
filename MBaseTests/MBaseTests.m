@@ -15,7 +15,7 @@
 #import "TestModel.h"
 #import "AnotherTestModel.h"
 #import "SBJson.h"
-#import "Transaction.h"
+//#import "Transaction.h"
 
 @interface MBase (Private)
 
