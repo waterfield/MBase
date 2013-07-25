@@ -432,6 +432,11 @@ static NSURL *urlBase;
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
             result = [dateFormatter dateFromString:obj];
         }
+        if(!result){
+            //2013-07-12T09:55:26.523
+            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+            result = [dateFormatter dateFromString:obj];
+        }
         return result;
     }
     //NSLog(@"targetClass /isEqualToString NSDate");
