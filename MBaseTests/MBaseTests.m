@@ -243,4 +243,10 @@
     STAssertNotNil(output.aDate, @"a date should not be nil");
 }
 
+- (void) testSubsecondDates{
+    TestModel *output = [[TestModel alloc] initWithDictionary:@{ @"a_date" : @"2013-07-12T09:55:26.523" }];
+    
+    STAssertNotNil(output.aDate, @"a date should not be nil");
+}
+
 @end
