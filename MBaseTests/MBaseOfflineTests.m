@@ -28,6 +28,7 @@
     [MBase enableOfflineSupport];
     
     [mock verify];
+    [MBaseOffline setInstance:nil];
 }
 
 - (void) testOfflineSupportFalseIfNotEnabled{
