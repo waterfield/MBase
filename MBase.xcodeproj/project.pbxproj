@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		963BB99E17A6F63D00A8ABCF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963BB99D17A6F63D00A8ABCF /* SystemConfiguration.framework */; };
+		963BB9A017A6F67700A8ABCF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963BB99F17A6F67700A8ABCF /* CFNetwork.framework */; };
+		963BB9A117A6F6D600A8ABCF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963BB99D17A6F63D00A8ABCF /* SystemConfiguration.framework */; };
+		963BB9A417A6F9CD00A8ABCF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BB9A317A6F9CD00A8ABCF /* Reachability.m */; };
 		9650CCB015D9985800F1340C /* AnotherTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9650CCAF15D9985800F1340C /* AnotherTestModel.m */; };
 		9650CCB415D9B0DA00F1340C /* EmbeddedTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9650CCB315D9B0DA00F1340C /* EmbeddedTestModel.m */; };
 		9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9675B56F15C731D2006403EA /* NSNumber+Formatter.m */; };
 		9675B57215C734D8006403EA /* Formatters.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B57115C731FB006403EA /* Formatters.h */; };
 		9675B57315C734D8006403EA /* NSNumber+Formatter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B56E15C731D2006403EA /* NSNumber+Formatter.h */; };
-		96D425DE17A6C338008C3404 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D425DD17A6C32A008C3404 /* Reachability.m */; };
-		96D425DF17A6C338008C3404 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D425DD17A6C32A008C3404 /* Reachability.m */; };
 		96D425E217A6C3FF008C3404 /* MBaseOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D425E117A6C3FF008C3404 /* MBaseOffline.m */; };
-		96D425E317A6C3FF008C3404 /* MBaseOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D425E117A6C3FF008C3404 /* MBaseOffline.m */; };
 		96D7DDA615C2507B00199B36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA515C2507B00199B36 /* Foundation.framework */; };
 		96D7DDAB15C2507B00199B36 /* MBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96D7DDAA15C2507B00199B36 /* MBase.h */; };
 		96D7DDAD15C2507B00199B36 /* MBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDAC15C2507B00199B36 /* MBase.m */; };
 		96D7DDB515C2507B00199B36 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDB415C2507B00199B36 /* SenTestingKit.framework */; };
-		96D7DDB715C2507B00199B36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDB615C2507B00199B36 /* UIKit.framework */; };
 		96D7DDB815C2507B00199B36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA515C2507B00199B36 /* Foundation.framework */; };
 		96D7DDBB15C2507B00199B36 /* libMBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA215C2507B00199B36 /* libMBase.a */; };
 		96D7DDC115C2507B00199B36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96D7DDBF15C2507B00199B36 /* InfoPlist.strings */; };
@@ -69,6 +69,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		963BB99D17A6F63D00A8ABCF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		963BB99F17A6F67700A8ABCF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		963BB9A317A6F9CD00A8ABCF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		9650CCAE15D9985800F1340C /* AnotherTestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnotherTestModel.h; sourceTree = "<group>"; };
 		9650CCAF15D9985800F1340C /* AnotherTestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnotherTestModel.m; sourceTree = "<group>"; };
 		9650CCB215D9B0DA00F1340C /* EmbeddedTestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedTestModel.h; sourceTree = "<group>"; };
@@ -77,7 +80,6 @@
 		9675B56F15C731D2006403EA /* NSNumber+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Formatter.m"; sourceTree = "<group>"; };
 		9675B57115C731FB006403EA /* Formatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Formatters.h; sourceTree = "<group>"; };
 		96D425DC17A6C32A008C3404 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
-		96D425DD17A6C32A008C3404 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		96D425E017A6C3FF008C3404 /* MBaseOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBaseOffline.h; sourceTree = "<group>"; };
 		96D425E117A6C3FF008C3404 /* MBaseOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBaseOffline.m; sourceTree = "<group>"; };
 		96D7DDA215C2507B00199B36 /* libMBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMBase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963BB9A017A6F67700A8ABCF /* CFNetwork.framework in Frameworks */,
+				963BB99E17A6F63D00A8ABCF /* SystemConfiguration.framework in Frameworks */,
 				96D7DDA615C2507B00199B36 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,8 +144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963BB9A117A6F6D600A8ABCF /* SystemConfiguration.framework in Frameworks */,
 				96D7DDB515C2507B00199B36 /* SenTestingKit.framework in Frameworks */,
-				96D7DDB715C2507B00199B36 /* UIKit.framework in Frameworks */,
 				96D7DDB815C2507B00199B36 /* Foundation.framework in Frameworks */,
 				96D7DDBB15C2507B00199B36 /* libMBase.a in Frameworks */,
 			);
@@ -153,8 +157,8 @@
 		96D425DB17A6C31A008C3404 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
+				963BB9A317A6F9CD00A8ABCF /* Reachability.m */,
 				96D425DC17A6C32A008C3404 /* Reachability.h */,
-				96D425DD17A6C32A008C3404 /* Reachability.m */,
 			);
 			name = Reachability;
 			sourceTree = "<group>";
@@ -183,6 +187,8 @@
 		96D7DDA415C2507B00199B36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				963BB99F17A6F67700A8ABCF /* CFNetwork.framework */,
+				963BB99D17A6F63D00A8ABCF /* SystemConfiguration.framework */,
 				96D7DDA515C2507B00199B36 /* Foundation.framework */,
 				96D7DDB415C2507B00199B36 /* SenTestingKit.framework */,
 				96D7DDB615C2507B00199B36 /* UIKit.framework */,
@@ -384,6 +390,7 @@
 				96D7DDEF15C251E400199B36 /* SBJsonStreamParserState.m in Sources */,
 				96D7DDF015C251E400199B36 /* SBJsonStreamWriter.m in Sources */,
 				96D7DDF115C251E400199B36 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				963BB9A417A6F9CD00A8ABCF /* Reachability.m in Sources */,
 				96D7DDF215C251E400199B36 /* SBJsonStreamWriterState.m in Sources */,
 				96D7DDF315C251E400199B36 /* SBJsonTokeniser.m in Sources */,
 				96D425E217A6C3FF008C3404 /* MBaseOffline.m in Sources */,
@@ -391,7 +398,6 @@
 				96D7DDF515C251E400199B36 /* SBJsonWriter.m in Sources */,
 				96D7DDF815C2529D00199B36 /* NSObject+Properties.m in Sources */,
 				96D7DDFB15C252D400199B36 /* NSString+PropertyKVC.m in Sources */,
-				96D425DE17A6C338008C3404 /* Reachability.m in Sources */,
 				9675B57015C731D2006403EA /* NSNumber+Formatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,10 +408,8 @@
 			files = (
 				96D7DDC415C2507B00199B36 /* MBaseTests.m in Sources */,
 				96D8DF8C15C33F62008DE4FE /* TestModel.m in Sources */,
-				96D425E317A6C3FF008C3404 /* MBaseOffline.m in Sources */,
 				9650CCB015D9985800F1340C /* AnotherTestModel.m in Sources */,
 				9650CCB415D9B0DA00F1340C /* EmbeddedTestModel.m in Sources */,
-				96D425DF17A6C338008C3404 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
