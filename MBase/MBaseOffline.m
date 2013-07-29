@@ -28,6 +28,10 @@ MBaseOffline * __MBASEOFFLINE_INSTANCE;
     }
 }
 
++ (void) setInstance:(MBaseOffline *)instance{
+    __MBASEOFFLINE_INSTANCE = instance;
+}
+
 - (void) setApiHost:(NSString *)hostname{
     reachability = [Reachability reachabilityWithHostname:hostname];
     __weak MBaseOffline *this = self;
