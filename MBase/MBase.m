@@ -17,12 +17,15 @@
 #import "SBJson.h"
 #import "NSString+base64.h"
 #import "NSObject+Properties.h"
+#import "MBaseOffline.h"
 
 static NSURL *urlBase;
 
 @implementation MBase
 
 - (id) initWithDictionary:(NSDictionary *)dictionary{
+    [MBaseOffline registerClass:[self class]];
+    
     NSArray *properties = [self propertyNames];
     for(int i = 0; i != [properties count]; i++){
         NSString *propertyName = [properties objectAtIndex:i];
@@ -83,6 +86,10 @@ static NSURL *urlBase;
 
 + (void) setUrlBase:(NSString *)url{
     urlBase = [NSURL URLWithString:url];
+}
+
++ (void) enableOfflineSupport{
+    [MBaseOffline setApiHost:[urlBase host]];
 }
 
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password{

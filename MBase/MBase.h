@@ -34,6 +34,7 @@
 + (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback;
 
 + (void) setUrlBase:(NSString *)url;
++ (void) enableOfflineSupport;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path;
