@@ -49,11 +49,11 @@ MBaseOffline * __MBASEOFFLINE_INSTANCE;
     return reachability != nil;
 }
 
-- (void) registerClass:(Class)klass{
+- (void) flushPendingUpdates{
     //TODO
 }
 
-- (void) flushPendingUpdates{
+- (void) cachePostData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:authorization {
     //TODO
 }
 

@@ -27,6 +27,6 @@
 - (void) flushPendingUpdates;               //attempts to (if online) POST any outstanding updates to models
 - (bool) apiReachable;                      //returns false if the api is reachable. The api host must be set first.
 - (bool) offlineSupport;                    //returns false if the api host has not been set
-- (void) registerClass:(Class)klass;        //document the existance of an MBase subclass for offline support
+- (void) cachePostData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:authorization;
 
 @end

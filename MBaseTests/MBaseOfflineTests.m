@@ -15,6 +15,7 @@
 #import "MBase.h"
 #import "MBaseOffline.h"
 #import "OCMockObject.h"
+#import "TestModel.h"
 
 @implementation MBaseOfflineTests
 
@@ -40,5 +41,18 @@
     
     STAssertTrue([[MBaseOffline instance] offlineSupport], @"Offline support should be enabled");
 }
+/*
+- (void) testPostToPathChecksApiReachable{
+    id mock = [OCMockObject mockForClass:[MBaseOffline class]];
+    [MBaseOffline setInstance:mock];
+    
+    [[mock expect] apiReachable];
+    
+    TestModel *model = [TestModel new];
+    [model postToPath:@"/aPath"];
+    
+    [mock verify];
+    [MBaseOffline setInstance:nil];
+}*/
 
 @end

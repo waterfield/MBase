@@ -23,9 +23,7 @@ static NSURL *urlBase;
 
 @implementation MBase
 
-- (id) initWithDictionary:(NSDictionary *)dictionary{
-    [[MBaseOffline instance] registerClass:[self class]];
-    
+- (id) initWithDictionary:(NSDictionary *)dictionary{    
     NSArray *properties = [self propertyNames];
     for(int i = 0; i != [properties count]; i++){
         NSString *propertyName = [properties objectAtIndex:i];
@@ -129,6 +127,12 @@ static NSURL *urlBase;
 }
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization{
+    if(![[MBaseOffline instance] apiReachable]){
+        [[MBaseOffline instance] cachePostData:data toPath:path withAuthorization:authorization];
+        
+        return nil; //??
+    }
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"POST"];
     if(data){
