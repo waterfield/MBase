@@ -68,6 +68,23 @@ static NSURL *urlBase;
     return [helper stringWithObject:self];
 }
 
+- (NSDictionary *) toDictionary{
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    
+    NSArray *properties = [self propertyNames];
+    for(int i = 0; i != [properties count]; i++){
+        NSString *propertyName = [properties objectAtIndex:i];
+        
+        NSString *key = [self translatePropertyName:propertyName];
+        id value = [self valueForKey:propertyName];
+        if(value)
+            [result setObject:value forKey:key];
+    }
+
+    
+    return result;
+}
+
 + (NSArray *) objectsFromPath:(NSString *)path{
     return [self objectsFromPath:path withAuthorization:nil];
 }
@@ -82,6 +99,16 @@ static NSURL *urlBase;
     }
     
     return results;
+}
+
+- (void) postToPath:(NSString *)path{
+    NSDictionary *params = [self toDictionary];
+    [[self class] postData:params toPath:path];
+}
+
+- (void) postToPath:(NSString *)path withAuthorization:(NSString *)authorization{
+    NSDictionary *params = [self toDictionary];
+    [[self class] postData:params toPath:path withAuthorization:authorization];
 }
 
 + (void) setUrlBase:(NSString *)url{

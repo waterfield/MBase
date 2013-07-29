@@ -249,4 +249,33 @@
     STAssertNotNil(output.aDate, @"a date should not be nil");
 }
 
+- (void) testToDictionary{
+    NSDictionary *testData = @{ @"a_number": @123 };
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    NSDictionary *outputDictionary = [testModel toDictionary];
+    
+    STAssertNotNil(outputDictionary, @"dictionary should not be nil");
+    STAssertNotNil([outputDictionary objectForKey:@"a_number"], @"should contain a_number");
+}
+
+- (void) testToDictionaryNSNumber{
+    NSDictionary *testData = @{ @"a_number": @123 };
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    NSDictionary *outputDictionary = [testModel toDictionary];
+    STAssertTrue([[outputDictionary objectForKey:@"a_number"] isEqualToNumber:@123], @"a_number should equal 123");
+}
+
+- (void) testToDictionaryNSString{
+    NSDictionary *testData = @{ @"a_string": @"hello" };
+    
+    TestModel *testModel = [[TestModel alloc] initWithDictionary:testData];
+    
+    NSDictionary *outputDictionary = [testModel toDictionary];
+    STAssertTrue([[outputDictionary objectForKey:@"a_string"] isEqualToString:@"hello"], @"a_string should equal 'hello'");
+}
+
 @end

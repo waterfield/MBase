@@ -26,15 +26,18 @@
 - (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 - (id) inspect;
+- (NSDictionary *) toDictionary;
 
 //configuration methods.
 + (void) setUrlBase:(NSString *)url;
 + (void) enableOfflineSupport;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
-//GETs instances of MBase subclass
+//GETs/POSTs instances of MBase subclass
 + (NSArray *) objectsFromPath:(NSString *)path;
 + (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
+- (void) postToPath:(NSString *)path;
+- (void) postToPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 
 //Deprecated?
