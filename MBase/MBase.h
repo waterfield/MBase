@@ -27,33 +27,25 @@
 
 - (id) inspect;
 
-+ (NSArray *) objectsFromPath:(NSString *)path;
-+ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
-
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback;
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback;
-
+//configuration methods.
 + (void) setUrlBase:(NSString *)url;
 + (void) enableOfflineSupport;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
+//GETs instances of MBase subclass
++ (NSArray *) objectsFromPath:(NSString *)path;
++ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
+
+
+//Deprecated?
++ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback;
++ (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback;
+
+
+//raw methods. GETs/POSTs raw JSON.
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path;
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization;
 + (id) getDataFromPath:(NSString *)path;
 + (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
-
-
-/*
- Thoughts:
- 
- Calling setUrlBase: should be required.
- 
- The "Path" will be used as a means of looking up an object in cache.
- 
- By default GETs are cached indefiniately. - Nothing else.
- --> Options: Disabled caching, or set max age.
- 
- */
-
 
 @end
