@@ -24,7 +24,7 @@ static NSURL *urlBase;
 @implementation MBase
 
 - (id) initWithDictionary:(NSDictionary *)dictionary{
-    [MBaseOffline registerClass:[self class]];
+    [[MBaseOffline instance] registerClass:[self class]];
     
     NSArray *properties = [self propertyNames];
     for(int i = 0; i != [properties count]; i++){
@@ -89,7 +89,7 @@ static NSURL *urlBase;
 }
 
 + (void) enableOfflineSupport{
-    [MBaseOffline setApiHost:[urlBase host]];
+    [[MBaseOffline instance] setApiHost:[urlBase host]];
 }
 
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password{

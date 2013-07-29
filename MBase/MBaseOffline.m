@@ -15,31 +15,41 @@
 #import "MBaseOffline.h"
 #import "Reachability.h"
 
-Reachability * __MBASE_REACHBILITY;
+MBaseOffline * __MBASEOFFLINE_INSTANCE;
 
 @implementation MBaseOffline
+@synthesize reachability;
 
-+ (void) setApiHost:(NSString *)hostname{
-    __MBASE_REACHBILITY = [Reachability reachabilityWithHostname:hostname];
-    __MBASE_REACHBILITY.reachableBlock = ^(Reachability *reach){
-        [self flushPendingUpdates];
++ (MBaseOffline *) instance{
+    @synchronized(self){
+        if(!__MBASEOFFLINE_INSTANCE)
+            __MBASEOFFLINE_INSTANCE = [MBaseOffline new];
+        return __MBASEOFFLINE_INSTANCE;
+    }
+}
+
+- (void) setApiHost:(NSString *)hostname{
+    reachability = [Reachability reachabilityWithHostname:hostname];
+    __weak MBaseOffline *this = self;
+    reachability.reachableBlock = ^(Reachability *reach){
+        [this flushPendingUpdates];
     };
-    [__MBASE_REACHBILITY startNotifier];
+    [reachability startNotifier];
 }
 
-+ (bool) apiReachable{
-    return __MBASE_REACHBILITY && [__MBASE_REACHBILITY isReachable];
+- (bool) apiReachable{
+    return reachability && [reachability isReachable];
 }
 
-+ (bool) offlineSupport{
-    return __MBASE_REACHBILITY != nil;
+- (bool) offlineSupport{
+    return reachability != nil;
 }
 
-+ (void) registerClass:(Class)klass{
+- (void) registerClass:(Class)klass{
     //TODO
 }
 
-+ (void) flushPendingUpdates{
+- (void) flushPendingUpdates{
     //TODO
 }
 

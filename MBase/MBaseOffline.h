@@ -13,14 +13,19 @@
 
 
 #import <Foundation/Foundation.h>
+#import "Reachability.h"
 
 //"private" class
 @interface MBaseOffline : NSObject
 
-+ (void) setApiHost:(NSString *)hostname;   //enables offline support
-+ (void) flushPendingUpdates;               //attempts to (if online) POST any outstanding updates to models
-+ (bool) apiReachable;                      //returns false if the api is reachable. The api host must be set first.
-+ (bool) offlineSupport;                    //returns false if the api host has not been set
-+ (void) registerClass:(Class)klass;        //document the existance of an MBase subclass for offline support
+@property (strong) Reachability *reachability;
+
++ (MBaseOffline *) instance;
+
+- (void) setApiHost:(NSString *)hostname;   //enables offline support
+- (void) flushPendingUpdates;               //attempts to (if online) POST any outstanding updates to models
+- (bool) apiReachable;                      //returns false if the api is reachable. The api host must be set first.
+- (bool) offlineSupport;                    //returns false if the api host has not been set
+- (void) registerClass:(Class)klass;        //document the existance of an MBase subclass for offline support
 
 @end
