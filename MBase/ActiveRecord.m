@@ -20,13 +20,16 @@
 
 @implementation ActiveRecord
 
-+ (NSArray *) getAllWithCallback:(void (^)(id))callback {
++ (void) getAllWithCallback:(void (^)(id))callback {
     NSString *className = NSStringFromClass(self.class);
     NSString *path = [NSString stringWithFormat:@"%@", [[className pluralizeString] lowercaseString]];
-    NSArray *result = [self cachedObjectsFromPath:path withCallback:^(NSArray *newResult) {
-        callback(newResult);
-    }];
-    return result;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *result = [self getDataFromPath:path];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(result);
+        });
+    });
 }
 
 + (void) create:(NSDictionary *)params withCallback:(void (^)(id))callback {
@@ -34,29 +37,14 @@
     NSString *path = [NSString stringWithFormat:@"%@", [[className pluralizeString] lowercaseString]];
     
     params = [params objectForKey:className] ? params : @{className : params};
-    NSLog(@"params: %@", params);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *newData = [self.class postData:params toPath:path];
         id object = [[self alloc] initWithDictionary:newData];
-        callback(object);
-        
-        NSLog(@"newData: %@", newData);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(object);
+        });
     });
-}
-
-- (void) postToPath:(NSString *)path{
-    NSDictionary *params = [self toDictionary];
-    [[self class] postData:params toPath:path];
-}
-
-- (void) postToPath:(NSString *)path withAuthorization:(NSString *)authorization {
-    NSDictionary *params = [self toDictionary];
-    [[self class] postData:params toPath:path withAuthorization:authorization];
-}
-
-- (BOOL) isEqual:(ActiveRecord *)object {
-    return [[self toDictionary] isEqualToDictionary: [object toDictionary]];
 }
 
 @end

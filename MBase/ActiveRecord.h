@@ -15,9 +15,8 @@
 
 @interface ActiveRecord : MBase
 
-+ (NSArray *) getAllWithCallback:(void(^)(id))callback;
-//+ (id) findById:(int)idx withCallback:(void(^)(id))callback;
+//non-blocking operations. will perform callback on main thread.
++ (void) getAllWithCallback:(void(^)(id))callback;
 + (void) create:(NSDictionary *)record withCallback:(void(^)(id))callback;
-//+ (void) update:(id)record byId:(int)idx withCallback:(void(^)(id))callback;
 
 @end
