@@ -19,6 +19,7 @@
 		9675B57215C734D8006403EA /* Formatters.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B57115C731FB006403EA /* Formatters.h */; };
 		9675B57315C734D8006403EA /* NSNumber+Formatter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9675B56E15C731D2006403EA /* NSNumber+Formatter.h */; };
 		96D425E217A6C3FF008C3404 /* MBaseOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D425E117A6C3FF008C3404 /* MBaseOffline.m */; };
+		96D5894017AA96EC00248F1F /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D5893F17AA96EC00248F1F /* OfflineData.m */; };
 		96D7DDA615C2507B00199B36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D7DDA515C2507B00199B36 /* Foundation.framework */; };
 		96D7DDAB15C2507B00199B36 /* MBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96D7DDAA15C2507B00199B36 /* MBase.h */; };
 		96D7DDAD15C2507B00199B36 /* MBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7DDAC15C2507B00199B36 /* MBase.m */; };
@@ -93,6 +94,8 @@
 		96D425DC17A6C32A008C3404 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
 		96D425E017A6C3FF008C3404 /* MBaseOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBaseOffline.h; sourceTree = "<group>"; };
 		96D425E117A6C3FF008C3404 /* MBaseOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBaseOffline.m; sourceTree = "<group>"; };
+		96D5893E17AA96EC00248F1F /* OfflineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
+		96D5893F17AA96EC00248F1F /* OfflineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
 		96D7DDA215C2507B00199B36 /* libMBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMBase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96D7DDA515C2507B00199B36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96D7DDA915C2507B00199B36 /* MBase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBase-Prefix.pch"; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				96D7DDAC15C2507B00199B36 /* MBase.m */,
 				96D425E017A6C3FF008C3404 /* MBaseOffline.h */,
 				96D425E117A6C3FF008C3404 /* MBaseOffline.m */,
+				96D5893E17AA96EC00248F1F /* OfflineData.h */,
+				96D5893F17AA96EC00248F1F /* OfflineData.m */,
 				9675B57115C731FB006403EA /* Formatters.h */,
 				9675B56E15C731D2006403EA /* NSNumber+Formatter.h */,
 				9675B56F15C731D2006403EA /* NSNumber+Formatter.m */,
@@ -427,6 +432,7 @@
 				96D7DDEE15C251E400199B36 /* SBJsonStreamParserAdapter.m in Sources */,
 				96D7DDEF15C251E400199B36 /* SBJsonStreamParserState.m in Sources */,
 				96D7DDF015C251E400199B36 /* SBJsonStreamWriter.m in Sources */,
+				96D5894017AA96EC00248F1F /* OfflineData.m in Sources */,
 				96D7DDF115C251E400199B36 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				963BB9A417A6F9CD00A8ABCF /* Reachability.m in Sources */,
 				96D7DDF215C251E400199B36 /* SBJsonStreamWriterState.m in Sources */,
