@@ -20,6 +20,20 @@
 #import "MBaseOffline.h"
 
 static NSURL *urlBase;
+static NSString *__auth;
+
+@interface MBase ()
+
++ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
+- (NSString *) translatePropertyName:(NSString *)propertyName;
+- (NSString *) camelToSnake:(NSString *)camel;
+- (NSString *) aliasForProperty:(NSString *)propertyName;
+- (NSString *) foreignKeyForProperty:(NSString *)propertyName;
+- (NSArray *)objectsForHasManyRelationship:(NSString *)propertyName withArray:(NSArray *)relationArray;
+- (id) convertObject:(id)obj toTypeForProperty:(NSString *) propertyName;
+- (bool)propertyIsImage:(NSString *)propertyName;
+
+@end
 
 @implementation MBase
 
@@ -48,19 +62,6 @@ static NSURL *urlBase;
     return self;
 }
 
-- (id) initWithContentFromPath:(NSString *)path{
-    return [self initWithContentFromPath:path withAuthorization:nil];
-}
-
-- (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
-    NSDictionary *rawData = [[self class] getDataFromPath:path withAuthorization:authorization];
-    id instance = nil;
-    if(rawData){
-        instance = [self initWithDictionary:rawData];
-    }
-    return instance;
-}
-
 - (id) inspect{
     SBJsonWriter *helper = [SBJsonWriter new];
     return [helper stringWithObject:self];
@@ -84,11 +85,7 @@ static NSURL *urlBase;
 }
 
 + (NSArray *) objectsFromPath:(NSString *)path{
-    return [self objectsFromPath:path withAuthorization:nil];
-}
-
-+ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
-    NSArray *rawResults = [self getDataFromPath:path withAuthorization:authorization];
+    NSArray *rawResults = [self getDataFromPath:path withAuthorization:__auth];
     NSMutableArray *results = [NSMutableArray new];
     
     for (int i = 0; i < rawResults.count; i++) {
@@ -107,13 +104,13 @@ static NSURL *urlBase;
     [[MBaseOffline instance] setApiHost:[urlBase host]];
 }
 
-+ (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password{
++ (void) setUsername:(NSString *)username andPassword:(NSString *)password{
     NSString *authorization = [NSString stringWithFormat:@"%@:%@", username, password];
-    return [authorization base64Encode];
+    __auth = [authorization base64Encode];
 }
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path{
-    return [self postData:data toPath:path withAuthorization:nil];
+    return [self postData:data toPath:path withAuthorization:__auth];
 }
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization{
@@ -159,45 +156,12 @@ static NSURL *urlBase;
 }
 
 + (id) getDataFromPath:(NSString *)path{
-    return [self getDataFromPath:path withAuthorization:nil];
-}
-
-+ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    if(authorization){
-        [request addValue:authorization forHTTPHeaderField:@"Authorization"];
-    }
-    if(urlBase){
-        [request setURL:[NSURL URLWithString:path relativeToURL:urlBase]];
-    }else{
-        [request setURL:[NSURL URLWithString:path]];
-    }
-    
-    NSError *error = [[NSError alloc] init];
-    NSHTTPURLResponse *responseCode = nil;
-    
-    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    
-    if([responseCode statusCode] != 200){
-        NSLog(@"status code -> %i", [responseCode statusCode]);
-        NSLog(@"response data -> %@", [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding]);
-        return nil;
-    }
-    
-    NSString *stringData = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    return [parser objectWithString:stringData];
+    return [self getDataFromPath:path withAuthorization:__auth];
 }
 
 //---- cache ----
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback{
-    
-    return [self cachedObjectsFromPath:path withAuthorization:nil andCallback:callback];
-}
 
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback{
++ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback{
     
     NSString *cacheKey = [path stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     NSArray *cachedObjects = [self getObjectsFromFile:cacheKey];
@@ -205,7 +169,7 @@ static NSURL *urlBase;
     if (cachedObjects == nil) {
         //NSLog(@"cachedObjectsFromPath %@ == nil", path);
         // load new data and set initial cache
-        NSArray *rawData = [self getDataFromPath:path withAuthorization:authorization];
+        NSArray *rawData = [self getDataFromPath:path withAuthorization:__auth];
         NSMutableArray *results = [NSMutableArray new];
         for (int i = 0; i < rawData.count; i++) {
             id instance = [[self alloc] initWithDictionary:[rawData objectAtIndex:i]];
@@ -226,7 +190,7 @@ static NSURL *urlBase;
         // return cached object
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // load new data and set initial cache
-            NSArray *rawData = [self getDataFromPath:path withAuthorization:authorization];
+            NSArray *rawData = [self getDataFromPath:path withAuthorization:__auth];
             NSMutableArray *results = [NSMutableArray new];
             for (int i = 0; i < rawData.count; i++) {
                 id instance = [[self alloc] initWithDictionary:[rawData objectAtIndex:i]];
@@ -320,6 +284,36 @@ static NSURL *urlBase;
 }
 
 //---- private ----
+
++ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    if(authorization){
+        [request addValue:authorization forHTTPHeaderField:@"Authorization"];
+    }
+    if(urlBase){
+        [request setURL:[NSURL URLWithString:path relativeToURL:urlBase]];
+    }else{
+        [request setURL:[NSURL URLWithString:path]];
+    }
+    
+    NSError *error = [[NSError alloc] init];
+    NSHTTPURLResponse *responseCode = nil;
+    
+    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    
+    if([responseCode statusCode] != 200){
+        NSLog(@"status code -> %i", [responseCode statusCode]);
+        NSLog(@"response data -> %@", [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding]);
+        return nil;
+    }
+    
+    NSString *stringData = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    return [parser objectWithString:stringData];
+}
+
 - (NSString *) translatePropertyName:(NSString *)propertyName{
     NSString *alias = [self aliasForProperty:propertyName];
     return alias ? alias : [self camelToSnake:propertyName];

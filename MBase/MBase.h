@@ -22,8 +22,6 @@
 @interface MBase : NSObject <NSCoding>
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
-- (id) initWithContentFromPath:(NSString *)path;
-- (id) initWithContentFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 - (id) inspect;
 - (NSDictionary *) toDictionary;
@@ -31,22 +29,18 @@
 //configuration methods.
 + (void) setUrlBase:(NSString *)url;
 + (void) enableOfflineSupport;
-+ (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
++ (void) setUsername:(NSString *)username andPassword:(NSString *)password;
 
 //GETs instances of MBase subclass
 + (NSArray *) objectsFromPath:(NSString *)path;
-+ (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 
 //Deprecated?
 + (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback;
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization andCallback:(void (^)(id))callback;
-
++ (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 //raw methods. GETs/POSTs raw JSON.
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path;
-+ (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization;
 + (id) getDataFromPath:(NSString *)path;
-+ (id) getDataFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 @end
