@@ -38,7 +38,6 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *newData = [self.class postData:params toPath:path];
-        newData = newData[className] ? newData[className] : newData;        // { merchant: m, employee: e } 
         id object = [[self alloc] initWithDictionary:newData];
         callback(object);
         
