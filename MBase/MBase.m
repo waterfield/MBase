@@ -106,7 +106,7 @@ static NSString *__auth;
 
 + (void) setUsername:(NSString *)username andPassword:(NSString *)password{
     NSString *authorization = [NSString stringWithFormat:@"%@:%@", username, password];
-    __auth = [authorization base64Encode];
+    __auth = [NSString stringWithFormat:@"Basic %@", [authorization base64Encode]];
 }
 
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path{
