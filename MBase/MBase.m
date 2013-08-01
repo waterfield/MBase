@@ -99,16 +99,6 @@ static NSURL *urlBase;
     return results;
 }
 
-- (void) postToPath:(NSString *)path{
-    NSDictionary *params = [self toDictionary];
-    [[self class] postData:params toPath:path];
-}
-
-- (void) postToPath:(NSString *)path withAuthorization:(NSString *)authorization{
-    NSDictionary *params = [self toDictionary];
-    [[self class] postData:params toPath:path withAuthorization:authorization];
-}
-
 + (void) setUrlBase:(NSString *)url{
     urlBase = [NSURL URLWithString:url];
 }

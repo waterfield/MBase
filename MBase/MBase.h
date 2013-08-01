@@ -33,11 +33,9 @@
 + (void) enableOfflineSupport;
 + (NSString *) authorizationWithUsername:(NSString *)username andPassword:(NSString *)password;
 
-//GETs/POSTs instances of MBase subclass
+//GETs instances of MBase subclass
 + (NSArray *) objectsFromPath:(NSString *)path;
 + (NSArray *) objectsFromPath:(NSString *)path withAuthorization:(NSString *)authorization;
-- (void) postToPath:(NSString *)path;
-- (void) postToPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 
 //Deprecated?
