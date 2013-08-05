@@ -161,69 +161,6 @@ static NSString *__auth;
 
 //---- cache ----
 
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback{
-    
-    NSString *cacheKey = [path stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-    NSArray *cachedObjects = [self getObjectsFromFile:cacheKey];
-    
-    if (cachedObjects == nil) {
-        //NSLog(@"cachedObjectsFromPath %@ == nil", path);
-        // load new data and set initial cache
-        NSArray *rawData = [self getDataFromPath:path withAuthorization:__auth];
-        NSMutableArray *results = [NSMutableArray new];
-        for (int i = 0; i < rawData.count; i++) {
-            id instance = [[self alloc] initWithDictionary:[rawData objectAtIndex:i]];
-            [results addObject:instance];
-        }
-        
-        NSArray *processedResults = [NSArray arrayWithArray:results];
-        
-        [self storeObjects:processedResults toFile:cacheKey];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            callback(processedResults);
-        });
-        
-        return processedResults;
-    } else {
-        //NSLog(@"cachedObjectsFromPath %@: %@", path, cachedObjects);
-        // return cached object
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            // load new data and set initial cache
-            NSArray *rawData = [self getDataFromPath:path withAuthorization:__auth];
-            NSMutableArray *results = [NSMutableArray new];
-            for (int i = 0; i < rawData.count; i++) {
-                id instance = [[self alloc] initWithDictionary:[rawData objectAtIndex:i]];
-                [results addObject:instance];
-            }
-            
-            NSArray *processedResults = [NSArray arrayWithArray:results];
-            
-            [self storeObjects:processedResults toFile:cacheKey];
-            
-            callback(processedResults);
-        });
-        
-        return cachedObjects;
-    }
-}
-
-+ (void) storeObjects:(NSArray *)objects toFile:(NSString *)filename {
-    // NSLog(@"storeData: %@ toFile: %@", data, filename);
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, true);
-    NSString *libraryDirectory = [paths objectAtIndex:0];
-    NSString *file = [libraryDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@", filename]];
-    BOOL cacheFileCreated = [NSKeyedArchiver archiveRootObject:objects toFile:file];
-    if (cacheFileCreated) {
-        // prevent created file from being backed up to iCloud; requires iOS 5.1+
-        NSURL *fileUrl = [NSURL fileURLWithPath:file];
-        [fileUrl setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
-    } else {
-        // could not create file; next call requesting cached data will have to make live request
-        NSLog(@"could not create cache file");
-    }
-}
-
 + (NSArray *) getObjectsFromFile:(NSString *)filename{
     //NSLog(@"getDataFromFile: %@", filename);
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);

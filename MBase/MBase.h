@@ -36,7 +36,6 @@
 
 
 //Deprecated?
-+ (NSArray *) cachedObjectsFromPath:(NSString *)path withCallback:(void (^)(id))callback;
 + (id) postData:(NSDictionary *)data toPath:(NSString *)path withAuthorization:(NSString *)authorization;
 
 //raw methods. GETs/POSTs raw JSON.
