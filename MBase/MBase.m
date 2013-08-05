@@ -84,6 +84,11 @@ static NSString *__auth;
     return result;
 }
 
++ (id) objectFromPath:(NSString *)path{
+    NSDictionary *dictionary = [self getDataFromPath:path withAuthorization:__auth];
+    return [[self alloc] initWithDictionary: dictionary];
+}
+
 + (NSArray *) objectsFromPath:(NSString *)path{
     NSArray *rawResults = [self getDataFromPath:path withAuthorization:__auth];
     NSMutableArray *results = [NSMutableArray new];

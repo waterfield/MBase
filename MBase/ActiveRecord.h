@@ -16,6 +16,7 @@
 @interface ActiveRecord : MBase
 
 //non-blocking operations. will perform callback on main thread.
++ (void) getById:(int)objId withCallback:(void(^)(id))callback;
 + (void) getAllWithCallback:(void(^)(id))callback;
 + (void) create:(NSDictionary *)record withCallback:(void(^)(id))callback;
 

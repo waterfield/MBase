@@ -33,6 +33,7 @@
 
 //GETs instances of MBase subclass
 + (NSArray *) objectsFromPath:(NSString *)path;
++ (id) objectFromPath:(NSString *)path;
 
 
 //Deprecated?
